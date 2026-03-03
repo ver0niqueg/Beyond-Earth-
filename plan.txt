@@ -1,0 +1,75 @@
+Beyond Earth - Exploring the Universe through data
+
+source: https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=PS
+
+
+Plan projet :
+Étape 01 — Collecte : Télécharger le CSV NASA directement sur leur site, ~1h.
+Étape 02 — Nettoyage : Utiliser pandas pour explorer et nettoyer les données (valeurs manquantes, types...), ~3-4h. C'est l'étape que les recruteurs data regardent le plus.
+Étape 03 — SQL : Importer dans SQLite avec df.to_sql() et écrire tes requêtes analytiques, ~2-3h.
+Étape 04 — Visualisation : 5 graphiques clés avec matplotlib/seaborn/plotly dans Jupyter, ~4-5h.
+Étape 05 — Front-end : Recréer un dashboard comme celui-ci avec Chart.js — c'est là que tu montres ton UI/UX, ~3-4h.
+Étape 06 — Publication : GitHub + GitHub Pages + README soigné + lien LinkedIn, ~1h.
+
+1- Téléchargement des données NASA 🛸
+
+https://exoplanetarchive.ipac.caltech.edu/ -> Tableau Confirmed Planets
+
+Download table au CSV format
+
+Colonnes importantes
+
+pl_name = name of the planet
+disc_year = the year it has been discovery
+discoverymethod = the discovery method
+pl_rade = rayon (terrestrial)
+pl_masse = mass (terrestrial)
+pl_orbper = orbital period (days)
+sy_dist = parsecs distance
+pl_eqt = temperature d'equilibre (K)
+st_teff = temperature of the host star
+sy_snum = number of stars in the system
+
+check du CSV
+
+beyond-earth/
+│
+├── data/
+│   └── exoplanets_raw.csv      ← ton fichier NASA ici
+│
+├── notebooks/
+│   └── 01_exploration.ipynb    ← pour l'étape 2
+│
+├── dashboard/
+│   └── index.html              ← pour l'étape 5
+│
+└── README.md
+
+2- Nettoyage avec pandas 🐍
+
+Installation :
+pip install pandas jupyter missingno matplotlib seaborn
+export PATH="$HOME/.local/bin:$PATH"
+jupyter notebook
+http://localhost:8888/tree?token=e0823b8518283ec8c2e3b031797a9a1dca5925b63d2b2fa5
+
+
+En général voici quand utiliser l'un ou l'autre :
+Python/pandas — ce qu'on fait maintenant
+
+Nettoyage et transformation des données
+Visualisations
+Exploration libre et rapide
+
+SQL
+
+Requêtes précises sur une base de données
+Aggregations (COUNT, AVG, GROUP BY...)
+Filtres et jointures entre plusieurs tables
+
+Avec Python (pandas)
+✅ Charger le dataset NASA (39 443 lignes)
+✅ Garder les 10 colonnes utiliser
+✅ Supprimer les doublons -> 6 128 planetes uniques
+✅ Identifier les valeurs manquantes
+✅ Sauvegarder exoplanets_clean.csv
