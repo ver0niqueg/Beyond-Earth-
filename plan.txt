@@ -1,4 +1,4 @@
-Beyond Earth - Exploring the Universe through data
+Beyond Earth - Exploring the Universe through data 🌌
 
 source: https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=PS
 
@@ -73,3 +73,8 @@ Avec Python (pandas)
 ✅ Supprimer les doublons -> 6 128 planetes uniques
 ✅ Identifier les valeurs manquantes
 ✅ Sauvegarder exoplanets_clean.csv
+
+3 - SQL
+
+Installation:
+pip3 install sqlalchemy
