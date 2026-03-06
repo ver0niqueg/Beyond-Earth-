@@ -78,3 +78,39 @@ Avec Python (pandas)
 
 Installation:
 pip3 install sqlalchemy
+
+Cellule 8:
+create_engine -> crée une connexion vers une base de données SQLite.
+Le fichier exoplanets.db est crée automatiquement dans le dossier data/
+df.to_sql -> prend le DataFrame pandas (6128 planètes nettoyées) et
+l'insère dans une table SQL appelée exoplanets. C'est comme si on
+importait le CSV dans une vraie base de données.
+
+Pourquoi faire ?
+Parce qu'en entreprise les données sont rarement dans des CSV, elles
+sont dans des bases de données. En faisant ça, on montre que l'on sait
+travailler avec SQL.
+
+Time to écrire des requetes
+Cellule 9:
+Combien de planètes par méthode de détection ?
+- Transit domine largement avec 4511 planètes - c'est la méthode du télescope Kepler
+- Radial Velocity en 2ème avec 1171 - la méthode historique
+- Microlensing Imaging... sont des méthodes rares et difficiles
+
+Cellule 10:
+Number of planets that have been discovered by year
+We can easily see in one shot the great evolution of planet discoveries !
+1992 - 2006 => slow discoveries, moyenne ?
+from 2011 => a hundred discoveries
+2014 => first pic with Kepler method (869)
+2016 => new pic 1496 planets
+2026 => 44 planets this year and we are only in march !
+
+Cellule 11:
+Proxima Cen b 1.3 parsecs => the nearest known from Earth, orbit around the star the nearest from Sun 
+Barnard b/c/d/e 1.8 parsecs => 4 planets around Barnard Star, discovered recently 2024-2025 
+The nearest 10 planets from the Earth
+NOTE: WASP-151 b has a suspicious distance of 0.3 parsecs which
+seems too close to be accurate. Possible data entry error in the NASA archive
+We keep it in the dataset but flag it for further inverstigation
