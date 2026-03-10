@@ -114,3 +114,21 @@ The nearest 10 planets from the Earth
 NOTE: WASP-151 b has a suspicious distance of 0.3 parsecs which
 seems too close to be accurate. Possible data entry error in the NASA archive
 We keep it in the dataset but flag it for further inverstigation
+
+Cellule 12: (AVG)
+Imaging détecte les planètes les plus grosses (avg 4287 masses terrestres) => on ne peut photographier que les géantes
+Transit et Radial Velocity détectent des planètes plus petites et variées
+Orbital Brightness Modulation détecte les plus petites - presque comme la Terre !
+
+Cellule 13: (HAVING)
+New table exoplanets_systems (sans doublons)
+
+Cellule 14: (HAVING)
+KOI-351 est le système avec le plus de planètes confirmées - 8 planètes !
+TRAPPIST-1 avec ses 7 planètes dont pusieurs dans la zone habitable
+Beaucoup de systèmes à 6 planètes découverts par Kepler
+
+Cellule 15: (SUB)
+- Kepler-1999 b est un monstre qvec 4282x le rayon terrestres
+- Les planètes découvertes pqr Imqging sont souventplus grosses
+- PDS 70 b est une plqnète encore en formation
