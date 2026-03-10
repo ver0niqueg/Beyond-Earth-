@@ -93,7 +93,7 @@ travailler avec SQL.
 
 Time to écrire des requetes
 Cellule 9:
-Combien de planètes par méthode de détection ?
+Combien de planètes par méthode de détection ? (detection_methods.png)
 - Transit domine largement avec 4511 planètes - c'est la méthode du télescope Kepler
 - Radial Velocity en 2ème avec 1171 - la méthode historique
 - Microlensing Imaging... sont des méthodes rares et difficiles
