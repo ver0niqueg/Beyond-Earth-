@@ -198,6 +198,9 @@
     @keyframes growBar { to { transform: scaleX(1); } }
     .bar-val { font-size: 11px; font-family: 'Space Mono', monospace; color: var(--text); width: 40px; text-align: right; }
 
+    /* Timeline chart - Discoveries over time */
+    .timeline-chart { position: flex; align-items: flex-end; gap: 4px; height: 100px; padding-bottom: 4px; }
+
         footer {
             border-top: 1px solid var(--border); padding: 24px 0; margin-top: 40px;
             display: flex; justify-content: space-between; align-items: center;
@@ -280,18 +283,29 @@
                 </div>    
             </div>
 
+        <!-- DISCOVERIES OVER TIME -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Discoveries Over Time</div>
+                            <div class="card-sub">Confirmed exoplanets per year</div>
+                        </div>
+                        <span class="card-tag">TIMELINE</span>
+                    </div>
+                    
+                        <canvas id="timelineChart" height="120"></canvas>
+                        <div class="insight">
+                            The pace of discoveries has accelerated dramatically since 2014, thanks to dedicated missions like Kepler and TESS.
+                        </div>
+                    </div>
+                </div>
+
         <!-- TOP 10 STAR SYSTEMS -->
         <div class="card">
             <div class="card-title">Top 10 Star Systems</div>
             <div class="card-sub">By number of confirmed planets</div>
             <canvas id="systemsChart"></canvas>
         </div>
-       </div>
-       <!-- DISCOVERIES OVER TIME -->
-       <div class="chart-full card">
-        <div class="card-title">Discoveries Over Time</div>
-        <div class="card-sub">Confirmed exoplanets per year</div>
-        <canvas id="timelineChart"></canvas>
        </div>
 
        <!-- FOOTER -->
@@ -327,29 +341,7 @@
             }
         });
 
-        // 2. TOP SYSTEMS
-        new Chart(document.getElementById('systemsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['KOI-351', 'TRAPPIST-1', 'TOI-178', 'KEPLER-80', 'KEPLER-20', 'KEPLER-11', 'K2-138', 'HIP 41378', 'HD 34445'],
-                datasets: [{
-                    data: [8, 7, 6, 6, 6, 6, 6, 6, 6, 6],
-                    backgroundColor: '#a78bfa',
-                    borderRadius: 6,
-                    borderSkipped: false, 
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { color: 'rgba(99,179,255,0.05)' } },
-                    y: { grid: { color: 'rgba(99,179,255,0.05)' } }
-                }
-            }
-        });
-
-        // 3. TIMELINE
+        // 2. TIMELINE
         new Chart(document.getElementById('timelineChart'), {
             type: 'line',
             data: {
@@ -365,6 +357,28 @@
                 }]
             },
             options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(99,179,255,0.05)' } },
+                    y: { grid: { color: 'rgba(99,179,255,0.05)' } }
+                }
+            }
+        });
+
+        // 3. TOP SYSTEMS
+        new Chart(document.getElementById('systemsChart'), {
+            type: 'bar',
+            data: {
+                labels: ['KOI-351', 'TRAPPIST-1', 'TOI-178', 'KEPLER-80', 'KEPLER-20', 'KEPLER-11', 'K2-138', 'HIP 41378', 'HD 34445'],
+                datasets: [{
+                    data: [8, 7, 6, 6, 6, 6, 6, 6, 6, 6],
+                    backgroundColor: '#a78bfa',
+                    borderRadius: 6,
+                    borderSkipped: false, 
+                }]
+            },
+            options: {
+                indexAxis: 'y',
                 plugins: { legend: { display: false } },
                 scales: {
                     x: { grid: { color: 'rgba(99,179,255,0.05)' } },
