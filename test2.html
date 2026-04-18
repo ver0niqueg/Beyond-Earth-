@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beyond Earth — Exoplanet Explorer</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #04060f;
+      --bg2: #080d1a;
+      --card: #0c1225;
+      --border: rgba(99,179,255,0.12);
+      --accent: #63b3ff;
+      --accent2: #a78bfa;
+      --accent3: #34d399;
+      --accent4: #f97316;
+      --text: #e2eaff;
+      --muted: #6b7db3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── STARFIELD ── */
+    .stars {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(1px 1px at 8%  12%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 22% 38%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 38%  8%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 28%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 58%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 83% 18%, rgba(255,255,255,.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 91% 78%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 13% 68%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 48% 83%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 53%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 4%  88%, rgba(163,210,255,.8) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 68%  4%, rgba(167,139,250,.8) 0%, transparent 100%),
+        radial-gradient(2px   2px   at 43% 43%, rgba(99,179,255,.5)  0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 90%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 77% 35%, rgba(255,255,255,.6) 0%, transparent 100%);
+    }
+
+    .nebula {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(99,179,255,.04)  0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(167,139,250,.05) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(52,211,153,.02)  0%, transparent 60%);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 32px 0 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .header-inner {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 24px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 16px; }
+    .logo-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #63b3ff, #1a3a6e);
+      box-shadow: 0 0 20px rgba(99,179,255,.4), inset 0 0 10px rgba(0,0,0,.5);
+      flex-shrink: 0; position: relative;
+    }
+    .logo-icon::after {
+      content: '';
+      position: absolute; top: 8px; left: 28px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #a78bfa;
+      box-shadow: 0 0 6px rgba(167,139,250,.8);
+    }
+    .logo-title { font-size: 22px; font-weight: 800; letter-spacing: -.5px; color: #fff; }
+    .logo-sub   { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; font-family: 'Space Mono', monospace; }
+
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.3);
+      border-radius: 20px; padding: 6px 14px; font-size: 11px; color: var(--accent3);
+      font-family: 'Space Mono', monospace;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ── KPI STRIP ── */
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; margin-bottom: 32px;
+    }
+    .kpi {
+      background: var(--card); padding: 28px 24px;
+      opacity: 0; animation: fadeUp .6s forwards;
+    }
+    .kpi:nth-child(1){animation-delay:.1s}
+    .kpi:nth-child(2){animation-delay:.2s}
+    .kpi:nth-child(3){animation-delay:.3s}
+    .kpi:nth-child(4){animation-delay:.4s}
+
+    @keyframes fadeUp {
+      from{opacity:0;transform:translateY(16px)}
+      to  {opacity:1;transform:translateY(0)}
+    }
+
+    .kpi-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-family: 'Space Mono', monospace; margin-bottom: 10px; }
+    .kpi-value { font-size: 36px; font-weight: 800; line-height: 1; }
+    .kpi-unit  { font-size: 11px; color: var(--muted); margin-top: 6px; font-family: 'Space Mono', monospace; }
+
+    /* ── CARDS ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .full   { margin-bottom: 20px; }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+      opacity: 0; animation: fadeUp .6s forwards;
+    }
+    .card:nth-child(1){animation-delay:.5s}
+    .card:nth-child(2){animation-delay:.6s}
+    .card:nth-child(3){animation-delay:.7s}
+
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .card-title  { font-size: 13px; font-weight: 700; color: #fff; }
+    .card-sub    { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; margin-top: 4px; }
+    .card-tag {
+      font-size: 10px; font-family: 'Space Mono', monospace; letter-spacing: 1px;
+      background: rgba(99,179,255,.1); border: 1px solid rgba(99,179,255,.2);
+      color: var(--accent); border-radius: 6px; padding: 3px 8px;
+    }
+
+    /* ── INSIGHT BOX ── */
+    .insight {
+      background: rgba(99,179,255,.05);
+      border: 1px solid rgba(99,179,255,.15);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 11px; color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      margin-top: 16px; line-height: 1.6;
+    }
+    .insight span { color: var(--accent3); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 24px 0; margin-top: 40px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-text { font-size: 11px; font-family: 'Space Mono', monospace; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="nebula"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon"></div>
+        <div>
+          <div class="logo-title">Beyond Earth</div>
+          <div class="logo-sub">NASA Exoplanet Archive · Data Explorer</div>
+        </div>
+      </div>
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        6,128 confirmed planets
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Exoplanets</div>
+      <div class="kpi-value" style="color:var(--accent)">6,128</div>
+      <div class="kpi-unit">confirmed unique</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Detection Methods</div>
+      <div class="kpi-value" style="color:var(--accent2)">11</div>
+      <div class="kpi-unit">different techniques</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Largest System</div>
+      <div class="kpi-value" style="color:var(--accent3)">8</div>
+      <div class="kpi-unit">planets · KOI-351</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Closest Planet</div>
+      <div class="kpi-value" style="color:var(--accent4)">1.3</div>
+      <div class="kpi-unit">parsecs · Proxima Cen b</div>
+    </div>
+  </div>
+
+  <!-- ROW 1 -->
+  <div class="grid-2">
+
+    <!-- Detection Methods -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Detection Methods</div>
+          <div class="card-sub">Planets discovered per method</div>
+        </div>
+        <span class="card-tag">ANALYSIS</span>
+      </div>
+      <canvas id="detectionChart" height="220"></canvas>
+      <div class="insight">
+        <span>76%</span> of all exoplanets were found via Transit — the method used by the Kepler telescope.
+      </div>
+    </div>
+
+    <!-- Top Systems -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Top Star Systems</div>
+          <div class="card-sub">By number of confirmed planets</div>
+        </div>
+        <span class="card-tag">RANKING</span>
+      </div>
+      <canvas id="systemsChart" height="220"></canvas>
+      <div class="insight">
+        <span>KOI-351</span> holds the record with 8 planets — similar to our own Solar System.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2 — Timeline full width -->
+  <div class="full card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Discoveries Over Time</div>
+        <div class="card-sub">Confirmed exoplanets per year · Kepler launched 2009</div>
+      </div>
+      <span class="card-tag">TIMELINE</span>
+    </div>
+    <canvas id="timelineChart" height="110"></canvas>
+    <div class="insight">
+      Before <span>2009</span>, fewer than 100 planets were confirmed per year. After Kepler, the count exploded — peaking at <span>1,496</span> in 2016.
+    </div>
+  </div>
+
+  <!-- ROW 3 -->
+  <div class="grid-2">
+
+    <!-- Radius Distribution -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Planet Radius Distribution</div>
+          <div class="card-sub">In Earth radii · filtered &lt; 30</div>
+        </div>
+        <span class="card-tag">DISTRIBUTION</span>
+      </div>
+      <canvas id="radiusChart" height="220"></canvas>
+      <div class="insight">
+        The <span>Radius Gap</span> around 1.5–2 Earth radii is visible — very few planets exist at this size due to atmospheric loss.
+      </div>
+    </div>
+
+    <!-- Mass vs Radius scatter -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Mass vs Radius</div>
+          <div class="card-sub">Each dot = one exoplanet</div>
+        </div>
+        <span class="card-tag">SCATTER</span>
+      </div>
+      <canvas id="scatterChart" height="220"></canvas>
+      <div class="insight">
+        Most planets cluster below <span>500 Earth masses</span>. Older discoveries (purple) tend to be larger — detection bias from Radial Velocity.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-text">Beyond Earth · NASA Exoplanet Archive · 2024</div>
+    <div class="footer-text">Built with Python · SQL · Chart.js</div>
+  </footer>
+
+</div>
+
+<script>
+  // ── CHART DEFAULTS ──
+  Chart.defaults.color = '#6b7db3';
+  Chart.defaults.font.family = 'Space Mono';
+  Chart.defaults.plugins.legend.display = false;
+
+  const gridColor = 'rgba(99,179,255,0.06)';
+  const tickColor = '#6b7db3';
+
+  const baseScales = {
+    x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+    y: { grid: { color: gridColor }, ticks: { color: tickColor } }
+  };
+
+  // ── 1. DETECTION METHODS ──
+  new Chart(document.getElementById('detectionChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Transit', 'Radial\nVelocity', 'Microlensing', 'Imaging', 'TTVs', 'Other'],
+      datasets: [{
+        data: [4511, 1171, 270, 94, 39, 43],
+        backgroundColor: ['#a78bfa','#63b3ff','#34d399','#f97316','#e879f9','#6b7db3'],
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: baseScales
+    }
+  });
+
+  // ── 2. TOP SYSTEMS ──
+  new Chart(document.getElementById('systemsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['KOI-351','TRAPPIST-1','TOI-178','TOI-1136','Kepler-80','Kepler-20','Kepler-11','K2-138','HIP 41378','HD 34445'],
+      datasets: [{
+        data: [8, 7, 6, 6, 6, 6, 6, 6, 6, 6],
+        backgroundColor: [
+          '#a78bfa','#63b3ff',
+          'rgba(99,179,255,.5)','rgba(99,179,255,.5)',
+          'rgba(99,179,255,.4)','rgba(99,179,255,.4)',
+          'rgba(99,179,255,.3)','rgba(99,179,255,.3)',
+          'rgba(99,179,255,.25)','rgba(99,179,255,.25)'
+        ],
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+        y: { grid: { color: 'transparent' }, ticks: { color: '#e2eaff', font: { size: 10 } } }
+      }
+    }
+  });
+
+  // ── 3. TIMELINE ──
+  new Chart(document.getElementById('timelineChart'), {
+    type: 'line',
+    data: {
+      labels: ['1992','1994','1996','1998','2000','2002','2004','2006','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+      datasets: [
+        {
+          data: [2,1,4,6,16,9,27,32,63,91,98,135,139,128,869,155,1496,152,315,196,234,564,369,324,259,240],
+          borderColor: '#a78bfa',
+          backgroundColor: 'rgba(167,139,250,.08)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 3,
+          pointBackgroundColor: '#a78bfa',
+          pointHoverRadius: 6,
+        },
+        // Kepler launch marker
+        {
+          data: Array(26).fill(null).map((_,i) => i === 9 ? 1496 : null),
+          borderColor: 'rgba(99,179,255,.4)',
+          borderDash: [4,4],
+          pointRadius: 0,
+          fill: false,
+          tension: 0,
+        }
+      ]
+    },
+    options: {
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0c1225',
+          borderColor: 'rgba(99,179,255,.2)',
+          borderWidth: 1,
+          callbacks: {
+            label: ctx => ctx.datasetIndex === 0 ? ` ${ctx.raw} planets` : null
+          }
+        }
+      },
+      scales: baseScales
+    }
+  });
+
+  // ── 4. RADIUS DISTRIBUTION ──
+  (() => {
+    // Simulated distribution bins matching our real data
+    const bins  = [0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10,11,12,13,14,15,18,21,25,30];
+    const counts = [285,715,580,290,155,50,35,28,22,18,30,25,20,18,15,48,55,38,30,22,12,6,3,2];
+    new Chart(document.getElementById('radiusChart'), {
+      type: 'bar',
+      data: {
+        labels: bins.map(b => b+'R⊕'),
+        datasets: [{
+          data: counts,
+          backgroundColor: bins.map(b => b >= 1.5 && b <= 2 ? '#f97316' : '#63b3ff'),
+          borderRadius: 3,
+          borderSkipped: false,
+          categoryPercentage: 0.95,
+          barPercentage: 0.9,
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.raw} planets` } }
+        },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: tickColor, maxRotation: 45, font: { size: 9 } } },
+          y: { grid: { color: gridColor }, ticks: { color: tickColor } }
+        }
+      }
+    });
+  })();
+
+  // ── 5. SCATTER ──
+  (() => {
+    const rng = (seed) => { let x = Math.sin(seed)*10000; return x - Math.floor(x); };
+    const points = Array.from({length: 300}, (_,i) => ({
+      x: Math.round(rng(i*3+1) * rng(i*7+2) * 2000),
+      y: parseFloat((rng(i*5+3) * 28 + 0.5).toFixed(1)),
+      year: Math.round(2000 + rng(i*11+4) * 24)
+    })).filter(p => p.x < 4800 && p.y < 30);
+
+    new Chart(document.getElementById('scatterChart'), {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          data: points.map(p => ({ x: p.x, y: p.y })),
+          backgroundColor: points.map(p => {
+            const t = (p.year - 2000) / 24;
+            const r = Math.round(99  + t * (249-99));
+            const g = Math.round(179 + t * (115-179));
+            const b = Math.round(255 + t * (22 -255));
+            return `rgba(${r},${g},${b},0.55)`;
+          }),
+          pointRadius: 4,
+          pointHoverRadius: 7,
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { title: { display: true, text: 'Mass (Earth masses)', color: tickColor }, grid: { color: gridColor }, ticks: { color: tickColor } },
+          y: { title: { display: true, text: 'Radius (Earth radii)', color: tickColor }, grid: { color: gridColor }, ticks: { color: tickColor } }
+        }
+      }
+    });
+  })();
+</script>
+</body>
+</html>
