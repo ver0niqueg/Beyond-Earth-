@@ -420,11 +420,9 @@
   });
 
   // ── 4. RADIUS DISTRIBUTION ──
-  (() => {
-    // Simulated distribution bins matching our real data
-    const bins  = [0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10,11,12,13,14,15,18,21,25,30];
-    const counts = [285,715,580,290,155,50,35,28,22,18,30,25,20,18,15,48,55,38,30,22,12,6,3,2];
-    new Chart(document.getElementById('radiusChart'), {
+  const bins  = [0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10,11,12,13,14,15,18,21,25,30];
+  const counts = [285,715,580,290,155,50,35,28,22,18,30,25,20,18,15,48,55,38,30,22,12,6,3,2];
+  new Chart(document.getElementById('radiusChart'), {
       type: 'bar',
       data: {
         labels: bins.map(b => b+'R⊕'),
@@ -447,13 +445,12 @@
           y: { grid: { color: gridColor }, ticks: { color: tickColor } }
         }
       }
-    });
-  })();
+    }
+  });
 
   // ── 5. SCATTER ──
-  (() => {
-    const rng = (seed) => { let x = Math.sin(seed)*10000; return x - Math.floor(x); };
-    const points = Array.from({length: 300}, (_,i) => ({
+  const rng = (seed) => { let x = Math.sin(seed)*10000; return x - Math.floor(x); };
+  const points = Array.from({length: 300}, (_,i) => ({
       x: Math.round(rng(i*3+1) * rng(i*7+2) * 2000),
       y: parseFloat((rng(i*5+3) * 28 + 0.5).toFixed(1)),
       year: Math.round(2000 + rng(i*11+4) * 24)
@@ -483,7 +480,6 @@
         }
       }
     });
-  })();
 </script>
 </body>
 </html>
