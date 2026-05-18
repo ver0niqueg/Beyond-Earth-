@@ -206,13 +206,49 @@
             border-top: 1px solid var(--border); padding: 24px 0; margin-top: 40px;
             display: flex; justify-content: space-between; align-items: center;
         }
-        footer.text { font-size: 11px; font-family: 'Space Mono', monospace; color: var(--muted); }
+        footer .footer-text { font-size: 11px; font-family: 'Space Mono', monospace; color: var(--muted); }
 
         /* responsive */
         @media (max-width: 768px) {
             .kpi-grid { grid-template-columns: 1fr 1fr; }
             .charts-grid { grid-template-columns: 1fr; }
     }
+
+    /* PROJECT STEPS */
+    .steps-section { margin: 40px 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .steps-header {
+        background: linear-gradient(135deg, rgba(99,179,255,0.08), rgba(167,139,250,0.08));
+        border-bottom: 1px solid var(--border); padding: 24px 28px;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .steps-title { font-size: 18px; font-weight: 800; color: white; }
+    .steps-sub   { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; margin-top: 4px; }
+    .steps-badge {
+        font-size: 11px; font-family: 'Space Mono', monospace;
+        background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3);
+        color: var(--accent3); border-radius: 8px; padding: 6px 14px;
+    }
+    .step { display: grid; grid-template-columns: 80px 1fr; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+        background: var(--bg2); border-right: 1px solid var(--border);
+        display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 0; gap: 4px;
+    }
+    .step-n  { font-size: 28px; font-weight: 800; line-height: 1; }
+    .step-of { font-size: 9px; color: var(--muted); font-family: 'Space Mono', monospace; }
+    .step-body { padding: 20px 24px; }
+    .step-phase { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-family: 'Space Mono', monospace; margin-bottom: 6px; }
+    .step-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 6px; }
+    .step-desc  { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .step-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .tool-tag   { font-size: 10px; font-family: 'Space Mono', monospace; border-radius: 4px; padding: 2px 8px; }
+    .done-badge {
+        display: inline-flex; align-items: center; gap: 5px;
+        background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2);
+        color: var(--accent3); border-radius: 6px; padding: 3px 10px;
+        font-size: 10px; font-family: 'Space Mono', monospace; margin-top: 8px;
+    }
+
     </style>
 </head>
 <body>
@@ -235,7 +271,7 @@
                 <div class="version">NASA Exoplanet Archive · v1.0</div>
                 <div class="live-badge">
                     <span class="live-dot"></span>
-                    ~5,627 confirmed planets
+                    ~6,128 confirmed planets
                 </div>
         </div>
      </header>
@@ -354,11 +390,39 @@
 
         </div>
 
+        <!-- PROJECT STEPS -->
+        <div class="steps-section">
+
+            <div class="steps-header">
+                <div>
+                    <div class="steps-title">Roadmap — Beyond Earth</div>
+                    <div class="steps-sub">Data Analyst Portfolio· Python · SQL · HTML / CSS / JS</div>
+                </div>
+                <div class="steps-badge">✅ 6 / 6 completed</div></div>
+            </div>
+
+            <div class="step">
+                <div class="step-num"><div class= "step-n">01</div>
+                <div class="step-of">/ 06</div></div>
+                <div class="step-body">
+                    <div class="step-phase">COLLECT</div>
+                    <div class="step-title">Download NASA Data</div>
+                    <div class="step-desc">Downloaded the confirmed planets CSV from Nasa Exoplanet Archive. 39,640 raw rows and 100 columns including planet name, discovery method, year, mass, radius, orbital period and distance.</div>
+                    <div class="step-tools">
+                        <span class="tool-tag">NASA Archive</span>
+                        <span class="tool-tag">CSV</span>
+                        <span class="tool-tag">Excel</span>
+                    </div>
+                    <div class="done-badge">✅ Completed</div>
+                </div>
+            </div>
+
+        </div>
+
        <!-- FOOTER -->
         <footer>
-            <div class="footer-text">Beyond Earth · NASA Exoplanet Archive · 2025</div>
-            <div class="footer-text">Built with Python · SQL · Chart.js</div>
-            <div class="footer-text">By Véronique Galmiche</div>
+            <div class="footer-text">Beyond Earth · NASA Exoplanet Archive · 2026</div>
+            <div class="footer-text">Built with Python · SQL · Chart.js by Véronique Galmiche</div>
         </footer>
     </div>
 
@@ -477,9 +541,20 @@
                 data: points.map(p => ({ x: p.x, y: p.y })),
                 backgroundColor: points.map(p => {
                 const t = (p.year - 2000) / 24;
-                const r = Math.round(99  + t * (249-99));
-                const g = Math.round(179 + t * (115-179));
-                const b = Math.round(255 + t * (22 -255));
+                let r, g, b;
+                if (t < 0.5) {
+                    // Bleu → Violet (0 to 0.5)
+                    const t2 = t * 2;
+                    r = Math.round(99 + t2 * (167-99));
+                    g = Math.round(179 + t2 * (139-179));
+                    b = Math.round(255 + t2 * (250-255));
+                } else {
+                    // Violet → Vert (0.5 to 1)
+                    const t2 = (t - 0.5) * 2;
+                    r = Math.round(167 + t2 * (52-167));
+                    g = Math.round(139 + t2 * (211-139));
+                    b = Math.round(250 + t2 * (153-250));
+                }
                 return `rgba(${r},${g},${b},0.55)`;
           }),
           pointRadius: 4,
