@@ -402,22 +402,98 @@
             </div>
 
             <div class="step">
-                <div class="step-num"><div class= "step-n">01</div>
+                <div class="step-num"><div class= "step-n" style="color:var(--accent3)">01</div>
                 <div class="step-of">/ 06</div></div>
                 <div class="step-body">
-                    <div class="step-phase">COLLECT</div>
+                    <div class="step-phase" style="color:var(--accent)">COLLECT</div>
                     <div class="step-title">Download NASA Data</div>
                     <div class="step-desc">Downloaded the confirmed planets CSV from Nasa Exoplanet Archive. 39,640 raw rows and 100 columns including planet name, discovery method, year, mass, radius, orbital period and distance.</div>
                     <div class="step-tools">
-                        <span class="tool-tag">NASA Archive</span>
-                        <span class="tool-tag">CSV</span>
-                        <span class="tool-tag">Excel</span>
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">NASA Archive</span>
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">CSV</span>
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">Excel</span>
                     </div>
                     <div class="done-badge">✅ Completed</div>
                 </div>
             </div>
 
-        </div>
+            <div class="step">
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">02</div><div class="step-of">/ 06</div></div>
+                <div class="step-body">
+                    <div class="step-phase" style="color:var(--accent2)">CLEAN</div>
+                    <div class="step-title">Data Cleaning with pandas</div>
+                    <div class="step-desc">Selected 10 useful columns, removed duplicates using drop_duplicates() on pl_name — reduced from 39,443 to 6,128 unique planets. Identified missing values with isnull().sum(). Fixed sy_dist from TEXT to FLOAT using pd.to_numeric().</div>
+                    <div class="step-tools">
+                        <span class="tool-tag" style="background:rgba(167,139,250,0.1);color:var(--accent2)">Python</span>
+                        <span class="tool-tag" style="background:rgba(167,139,250,0.1);color:var(--accent2)">pandas</span>
+                        <span class="tool-tag" style="background:rgba(167,139,250,0.1);color:var(--accent2)">Jupyter</span>
+                    </div>
+                    <div class="done-badge">✅ Completed</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">03</div><div class="step-of">/ 06</div></div>
+                <div class="step-body">
+                    <div class="step-phase" style="color:var(--accent3)">SQL</div>
+                    <div class="step-title">Analysis with SQLite</div>
+                    <div class="step-desc">Imported data into SQLite via df.to_sql(). Wrote 6 queries using COUNT, GROUP BY, WHERE, AVG, ROUND, HAVING and Subqueries. Created a second table exoplanets_systems to analyze multi-planet star systems. Found KOI-351 holds the record with 8 confirmed planets.</div>
+                    <div class="step-tools">
+                        <span class="tool-tag" style="background:rgba(52,211,153,0.1);color:var(--accent3)">SQL</span>
+                        <span class="tool-tag" style="background:rgba(52,211,153,0.1);color:var(--accent3)">SQLite</span>
+                        <span class="tool-tag" style="background:rgba(52,211,153,0.1);color:var(--accent3)">sqlalchemy</span>
+                    </div>
+                    <div class="done-badge">✅ Completed</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">04</div><div class="step-of">/ 06</div></div>
+                <div class="step-body">
+                    <div class="step-phase" style="color:var(--accent4)">VISUALIZE</div>
+                    <div class="step-title">Charts with matplotlib</div>
+                    <div class="step-desc">Created 5 visualizations: bar chart of detection methods (Transit = 76%), line chart of yearly discoveries with Kepler 2009 marker, scatter plot of mass vs radius colored by year, histogram of planet radii revealing the Radius Gap, and bar chart of top star systems.</div>
+                    <div class="step-tools">
+                        <span class="tool-tag" style="background:rgba(249,115,22,0.1);color:var(--accent4)">matplotlib</span>
+                        <span class="tool-tag" style="background:rgba(249,115,22,0.1);color:var(--accent4)">seaborn</span>
+                        <span class="tool-tag" style="background:rgba(249,115,22,0.1);color:var(--accent4)">Jupyter</span>
+                    </div>
+                    <div class="done-badge">✅ Completed</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">05</div><div class="step-of">/ 06</div></div>
+                <div class="step-body">
+                    <div class="step-phase" style="color:var(--accent)">FRONT-END · 3-4h</div>
+                    <div class="step-title">Interactive Dashboard</div>
+                    <div class="step-desc">Built this dashboard using HTML, CSS and vanilla JavaScript. Space-themed dark UI with animated starfield, gradient bar charts, interactive timeline, histogram, scatter plot and data tables. Fully responsive for mobile.</div>
+                    <div class="step-tools">
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">HTML</span>
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">CSS</span>
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">JavaScript</span>
+                        <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">VS Code</span>
+                    </div>
+                        <div class="done-badge">✅ Completed</div>
+                </div>
+            </div>
+
+            <div class="step" style="border-bottom:none;">
+                <div class="step-num"><div class="step-n" style="color:var(--muted)">06</div><div class="step-of">/ 06</div></div>
+                <div class="step-body">
+                    <div class="step-phase" style="color:var(--accent2)">PUBLISH · 1h</div>
+                    <div class="step-title">GitHub + GitHub Pages</div>
+                    <div class="step-desc">Push the full project to GitHub with a detailed README. Deploy the dashboard on GitHub Pages so recruiters can view it live. Add the link to LinkedIn profile.</div>
+                    <div class="step-tools">
+                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">Git</span>
+                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">GitHub</span>
+                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">GitHub Pages</span>
+                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">Markdown</span>
+                    </div>
+                </div>
+            </div>
+
+    </div>
 
        <!-- FOOTER -->
         <footer>
