@@ -69,7 +69,7 @@ Beyond-Earth-/
 
 ```bash
 # Clone the repo
-git clone https://github.com/TONPSEUDO/Beyond-Earth-.git
+git clone https://github.com/ver0niqueg/Beyond-Earth-.git
 cd Beyond-Earth-
 
 # Install Python dependencies
