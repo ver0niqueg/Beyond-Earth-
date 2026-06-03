@@ -15,12 +15,12 @@ Starting from a raw CSV file of 39,000+ rows from NASA, I cleaned, analyzed and 
 
 ## Features
 
-- 📊 Interactive dashboard with animated charts
-- 🔍 Detection methods analysis (Transit, Radial Velocity...)
-- 📅 Discoveries timeline (1992 → 2026)
-- 🌍 Closest exoplanets to Earth
-- ⭐ Multi-planet star systems ranking
-- 📱 Fully responsive dark space-themed UI
+- Interactive dashboard with animated charts
+- Detection methods analysis (Transit, Radial Velocity...)
+- Discoveries timeline (1992 → 2026)
+- Closest exoplanets to Earth
+- Multi-planet star systems ranking
+- Fully responsive dark space-themed UI
 
 ---
 
@@ -41,11 +41,11 @@ Starting from a raw CSV file of 39,000+ rows from NASA, I cleaned, analyzed and 
 
 ## Key Insights
 
-- 🚀 **76%** of exoplanets were discovered via Transit method
-- 📈 Kepler telescope launch in 2009 multiplied discoveries by **10x**
-- 🏆 **KOI-351** holds the record with **8 confirmed planets**
-- 🌍 **Proxima Cen b** is the closest known exoplanet at **1.3 parsecs**
-- 🔭 Peak year was **2016** with **1,496 discoveries**
+- **76%** of exoplanets were discovered via Transit method
+- Kepler telescope launch in 2009 multiplied discoveries by **10x**
+- **KOI-351** holds the record with **8 confirmed planets**
+- **Proxima Cen b** is the closest known exoplanet at **1.3 parsecs**
+- Peak year was **2016** with **1,496 discoveries**
 
 ---
 
