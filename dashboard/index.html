@@ -32,34 +32,6 @@
         }
 
         /* STARFIELD */
-        .stars {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background:
-                radial-gradient(1px 1px at 10% 15%, white 0%, transparent 100%),
-                radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.7) 0%, transparent 100%),
-                radial-gradient(1px 1px at 40% 10%, white 0%, transparent 100%),
-                radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.5) 0%, transparent 100%),
-                radial-gradient(1px 1px at 75% 60%, white 0%, transparent 100%),
-                radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.8) 0%, transparent 100%),
-                radial-gradient(1px 1px at 90% 80%, white 0%, transparent 100%),
-                radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 50% 85%, white 0%, transparent 100%),
-                radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 5% 90%, rgba(163,210,255,0.8) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 70% 5%, rgba(167,139,250,0.8) 0%, transparent 100%),
-                radial-gradient(2px 2px at 45% 45%, rgba(99,179,255,0.5) 0%, transparent 100%),
-                radial-gradient(0.9px 0.9px at 5% 5%, rgba(255,255,255,0.9) 0%, transparent 100%),
-                radial-gradient(0.8px 0.8px at 12% 28%, rgba(255,255,255,0.85) 0%, transparent 100%),
-                radial-gradient(0.7px 0.7px at 22% 12%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 30% 55%, rgba(255,255,255,0.95) 0%, transparent 100%),
-                radial-gradient(0.8px 0.8px at 42% 72%, rgba(255,255,255,0.7) 0%, transparent 100%),
-                radial-gradient(0.6px 0.6px at 58% 48%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1.2px 1.2px at 68% 15%, rgba(255,255,255,0.85) 0%, transparent 100%),
-                radial-gradient(0.9px 0.9px at 77% 82%, rgba(255,255,255,0.7) 0%, transparent 100%),
-                radial-gradient(0.6px 0.6px at 82% 38%, rgba(255,255,255,0.5) 0%, transparent 100%),
-                radial-gradient(0.7px 0.7px at 92% 62%, rgba(255,255,255,0.9) 0%, transparent 100%),
-                radial-gradient(0.8px 0.8px at 48% 40%, rgba(255,255,255,0.55) 0%, transparent 100%);
-        }
 
     .nebula {
         position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -103,17 +75,6 @@
         position: relative;
     }
 
-    /* PSEUDO ELEMENT CSS */
-    .logo-icon::after {
-        content: '';
-        position: absolute;
-        top: 12px; left: 40px;
-        width: 10px; height: 10px;
-        border-radius: 50%;
-        background: #a78bfa;
-        box-shadow: 0 0 8px rgba(167,139,250,0.8);
-    }
-
     .logo-text { line-height: 1; }
     .logo-title { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; color: white; text-shadow: 0 2px 6px rgba(255, 255, 255, 0.5);}
     .logo-sub { font-size: 14px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; font-family: 'Space Mono', monospace; margin-top: 3px }
@@ -127,8 +88,6 @@
         border-radius: 20px; padding: 6px 14px; font-size: 11px; color: var(--accent3);
         font-family: 'Space Mono', monospace; margin-top: 6px;
         }
-    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
     
     /* KPI CARDS - Key Performance Indicators = valeur précise */
     .kpi-grid {
@@ -252,7 +211,6 @@
     </style>
 </head>
 <body>
-<div class="stars"></div>
 <div class="nebula"></div>
 
 <div class="container">
@@ -264,13 +222,12 @@
                 <div class="logo-icon"></div>
                 <div class="logo-text">
                     <div class="logo-title">Beyond Earth</div>
-                    <div class="logo-sub">Exoplanet Data Explorer 🌌</div>
+                    <div class="logo-sub">Exoplanet Data Explorer</div>
                 </div>
             </div>
             <div class="header-meta">
                 <div class="version">NASA Exoplanet Archive · v1.0</div>
                 <div class="live-badge">
-                    <span class="live-dot"></span>
                     ~6,128 confirmed planets
                 </div>
         </div>
@@ -418,7 +375,7 @@
             </div>
 
             <div class="step">
-                <div class="step-num"><div class="step-n" style="color:var(--accent3)">02</div><div class="step-of">/ 06</div></div>
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">02</div><div class="step-of">/ 05</div></div>
                 <div class="step-body">
                     <div class="step-phase" style="color:var(--accent2)">CLEAN</div>
                     <div class="step-title">Data Cleaning with pandas</div>
@@ -433,7 +390,7 @@
             </div>
 
             <div class="step">
-                <div class="step-num"><div class="step-n" style="color:var(--accent3)">03</div><div class="step-of">/ 06</div></div>
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">03</div><div class="step-of">/ 05</div></div>
                 <div class="step-body">
                     <div class="step-phase" style="color:var(--accent3)">SQL</div>
                     <div class="step-title">Analysis with SQLite</div>
@@ -448,7 +405,7 @@
             </div>
 
             <div class="step">
-                <div class="step-num"><div class="step-n" style="color:var(--accent3)">04</div><div class="step-of">/ 06</div></div>
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">04</div><div class="step-of">/ 05</div></div>
                 <div class="step-body">
                     <div class="step-phase" style="color:var(--accent4)">VISUALIZE</div>
                     <div class="step-title">Charts with matplotlib</div>
@@ -463,9 +420,9 @@
             </div>
 
             <div class="step">
-                <div class="step-num"><div class="step-n" style="color:var(--accent3)">05</div><div class="step-of">/ 06</div></div>
+                <div class="step-num"><div class="step-n" style="color:var(--accent3)">05</div><div class="step-of">/ 05</div></div>
                 <div class="step-body">
-                    <div class="step-phase" style="color:var(--accent)">FRONT-END · 3-4h</div>
+                    <div class="step-phase" style="color:var(--accent)">FRONT-END</div>
                     <div class="step-title">Interactive Dashboard</div>
                     <div class="step-desc">Built this dashboard using HTML, CSS and vanilla JavaScript. Space-themed dark UI with animated starfield, gradient bar charts, interactive timeline, histogram, scatter plot and data tables. Fully responsive for mobile.</div>
                     <div class="step-tools">
@@ -475,21 +432,6 @@
                         <span class="tool-tag" style="background:rgba(99,179,255,0.1);color:var(--accent)">VS Code</span>
                     </div>
                         <div class="done-badge">✅ Completed</div>
-                </div>
-            </div>
-
-            <div class="step" style="border-bottom:none;">
-                <div class="step-num"><div class="step-n" style="color:var(--muted)">06</div><div class="step-of">/ 06</div></div>
-                <div class="step-body">
-                    <div class="step-phase" style="color:var(--accent2)">PUBLISH · 1h</div>
-                    <div class="step-title">GitHub + GitHub Pages</div>
-                    <div class="step-desc">Push the full project to GitHub with a detailed README. Deploy the dashboard on GitHub Pages so recruiters can view it live. Add the link to LinkedIn profile.</div>
-                    <div class="step-tools">
-                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">Git</span>
-                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">GitHub</span>
-                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">GitHub Pages</span>
-                        <span class="tool-tag" style="background:rgba(107,125,179,0.1);color:var(--muted)">Markdown</span>
-                    </div>
                 </div>
             </div>
 
