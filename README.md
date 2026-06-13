@@ -3,7 +3,7 @@
 
 A data analysis project exploring 6,000+ confirmed exoplanets from the NASA Exoplanet Archive. From raw data cleaning to an interactive web dashboard — built to demonstrate data analysis and front-end skills.
 
-🔗 <[Lien vercel](https://beyond-earth-99qw.vercel.app/)>
+🔗 <[Beyond Earth](https://beyond-earth-99qw.vercel.app/)>
 
 ---
 
