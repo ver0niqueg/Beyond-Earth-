@@ -118,6 +118,8 @@
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; width: 100%; }
     .chart-full { margin-bottom: 20px; }
 
+    .chart-wrapper { position: relative; width: 100%; }
+
     /* Cards */
     .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 16px;
@@ -289,7 +291,7 @@
                     <span class="card-tag">ANALYSIS</span>
                 </div>
                 <div class="bar-chart">
-                    <canvas id="detectionChart" height="260"></canvas>
+                    <div class="chart-wrapper" style="height:240px"><canvas id="detectionChart"></canvas></div>
                     <div class="insight">
                         <span>73.1% </span>of all exoplanets were found via Transit — the method used by the Kepler telescope.
                     </div>
@@ -305,7 +307,7 @@
                     </div>
                     <span class="card-tag">RANKING</span>
                 </div>
-                <canvas id="systemsChart"></canvas>
+                <div class="chart-wrapper" style="height:240px"><canvas id="systemsChart"></canvas></div>
                 <div class="insight">
                     <span>KOI-351</span> holds the record with 8 planets — similar to our own Solar System.
                 </div>
@@ -323,7 +325,7 @@
                     </div>
                     <span class="card-tag">TIMELINE</span>
                 </div>
-                <canvas id="timelineChart" height="110"></canvas>
+                <div class="chart-wrapper" style="height:160px"><canvas id="timelineChart"></canvas></div>
                 <div class="insight">
                     The pace of discoveries has accelerated dramatically since <span>2014</span>, thanks to dedicated missions like Kepler and TESS. The count exploded — peaking at <span>1,496</span> in <span>2016</span>.
                 </div>
@@ -342,7 +344,7 @@
                     </div>
                     <span class="card-tag">DISTRIBUTION</span>
                 </div>
-                <canvas id="radiusChart" height="220"></canvas>
+                <div class="chart-wrapper" style="height:220px"><canvas id="radiusChart"></canvas></div>
                 <div class="insight">
                     The <span>Radius Gap</span> around 1.5-2 Earth radii is visible — very few planets exist at this size due to atmospheric loss.
                 </div>
@@ -357,7 +359,7 @@
                     </div>
                     <span class="card-tag">SCATTER</span>
                 </div>
-                <canvas id="scatterChart" height="220"></canvas>
+                <div class="chart-wrapper" style="height:220px"><canvas id="scatterChart"></canvas></div>
                 <div class="insight">
                     Most planets cluster below <span>500 Earth masses</span>. Older discoveries (purple) tend to be larger — detection bias from Radial Velocity.
                 </div>
@@ -473,6 +475,8 @@
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 indexAxis: 'x',
                 plugins: { legend: { display: false } },
                 scales: {
@@ -495,6 +499,8 @@
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 indexAxis: 'y',
                 plugins: { legend: { display: false } },
                 scales: {
@@ -520,6 +526,8 @@
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
                     x: { grid: { color: 'rgba(99,179,255,0.05)' } },
@@ -545,9 +553,10 @@
                 }]
             },
             options: {
-                plugins: {
-                    legend: { display: false } },
-                    scales: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
                     x: { grid: { color: 'rgba(99,179,255,0.05)' } },
                     y: { grid: { color: 'rgba(99,179,255,0.05)' } }
                 }
@@ -592,6 +601,8 @@
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
                 x: { title: { display: true, text: 'Mass (Earth masses)', color: 'rgba(99,179,255,0.05)' } },
