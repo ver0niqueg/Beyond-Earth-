@@ -346,7 +346,7 @@
                 </div>
                 <div class="chart-wrapper" style="height:220px"><canvas id="radiusChart"></canvas></div>
                 <div class="insight">
-                    The <span>Radius Gap</span> around 1.5-2 Earth radii is visible — very few planets exist at this size due to atmospheric loss.
+                    The distribution peaks around <span>1-1.5</span> Earth radii — slightly larger than Earth, known as super-Earths. This is the most common size among confirmed exoplanets..
                 </div>
             </div>
         
@@ -545,7 +545,7 @@
                 labels: bins.map(b => b+'R⊕'),
                 datasets: [{
                     data: counts,
-                    backgroundColor: bins.map(b => b >= 1.5 && b <= 2 ? '#f97316' : '#63b3ff'),
+                    backgroundColor: '#63b3ff',
                     borderRadius: 3,
                     borderSkipped: false,
                     categoryPercentage: 0.95,
